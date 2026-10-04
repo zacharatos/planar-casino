@@ -1,0 +1,274 @@
+{
+  "PLANAR_CASINO": {
+    "ToolTitle": "Planar Casino",
+    "Keybinding": {
+      "Open": "Open the casino"
+    },
+    "Panel": {
+      "Title": "Planar Casino",
+      "Tab": {
+        "floor": "Floor",
+        "tables": "Tables",
+        "rivals": "Rivals",
+        "pack": "Pack",
+        "ledger": "Ledger"
+      },
+      "NoNight": "No casino night is open.",
+      "OpenNight": "Open night",
+      "CloseNight": "Close night",
+      "NightName": "Name (e.g. Session 03 — Casino)",
+      "LedgerPage": "Ledger page",
+      "FloorOpen": "Floor open to players",
+      "CageOpen": "Cages open",
+      "Welcome": "Welcome gift ({n} each)",
+      "PlayerView": "Player view",
+      "Gifted": "Welcome gift received",
+      "Reroll": "Has a reroll on the next pull",
+      "Wait": "wait {hours} h",
+      "Ready": "ready",
+      "Cage": "Cage",
+      "Adjust": "Adjust razors",
+      "Platinum": "Platinum chip",
+      "PlatinumConfirm": "Give {name} the platinum chip?",
+      "NoPCs": "No player characters found."
+    },
+    "Clock": {
+      "Now": "Hour {hour} of {of}",
+      "Next": "Next hour",
+      "Hour": "Hour {hour}",
+      "Nothing": "Nothing scheduled for this hour."
+    },
+    "Ui": {
+      "PC": "Character",
+      "Razors": "Chips",
+      "Grant": "Grant {item}"
+    },
+    "Game": {
+      "slots": "Slots",
+      "wheel": "Wheel",
+      "bones": "Bones",
+      "board": "Number board"
+    },
+    "Table": {
+      "Game": "Game",
+      "Ante": "Ante",
+      "DealerBones": "Dealer's bones",
+      "PCs": "Characters",
+      "Rivals": "Rivals",
+      "Open": "Open table",
+      "Close": "Close table",
+      "Resolve": "Roll",
+      "BetFor": "Bet for a PC",
+      "Round": "round {n}",
+      "AnteIs": "ante {ante}",
+      "DealerBonesIs": "dealer rolls {n}",
+      "Auto": "plays by style",
+      "Waiting": "waiting for a bet",
+      "BetBones": "{bones} bones, stake {stake}",
+      "Place": "Place bet",
+      "Change": "Change bet",
+      "Withdraw": "Withdraw"
+    },
+    "Bones": {
+      "Bones": "Bones",
+      "Stake": "Stake",
+      "Total": "Total",
+      "Bust": "1 — out",
+      "AllBust": "Everyone rolled a 1: the house keeps the pot.",
+      "Pot": "Pot {pot} · to the house {house}",
+      "Dealer": "Dealer",
+      "Rules": "Choose how many d6 (bones) to shake. Highest total wins the pot; anyone who rolls a 1 loses. Minimum stake {ante}."
+    },
+    "Board": {
+      "Rules": "Click a number to put a chip on it (right-click takes one back). The dealer rolls a d20: chips on that number pay {mult}×.",
+      "Stake": "On the table: {n} (you hold {have})",
+      "Clear": "Clear",
+      "Bets": "Bets",
+      "Net": "Net"
+    },
+    "Slots": {
+      "None": "Three different symbols. A sad trumpet sounds.",
+      "Pair": "Two of a kind: {symbol}!",
+      "Jackpot": "JACKPOT: {symbol}!",
+      "JackpotGone": "that jackpot was already won",
+      "Special": "The machines dance!",
+      "RerollTitle": "{name}: luck is on your side",
+      "RerollHint": "Pick the dice you want to reroll.",
+      "Reroll": "Reroll"
+    },
+    "Wheel": {
+      "NoPrize": "No prize.",
+      "Claimed": "That prize has already been won: no prize.",
+      "Exhausted": "The wheel spins and spins… and stops on nothing.",
+      "ClickToClose": "Click to close",
+      "Ring": {
+        "outer": "Outer",
+        "middle": "Middle",
+        "inner": "Inner"
+      }
+    },
+    "Heat": {
+      "Title": "Heat",
+      "Message": "{name} has won {n} times at {game}. Security takes notice."
+    },
+    "Trigger": {
+      "ForGM": "For you, when {name} plays"
+    },
+    "Rivals": {
+      "Hint": "Rivals sit at tables and play by their style. Bankroll is in chips.",
+      "Name": "Name",
+      "Bankroll": "Bankroll",
+      "Bones": "Bones (e.g. 2-4)",
+      "Numbers": "Numbers they bet on",
+      "Wager": "Chips per bet",
+      "Add": "Add rival",
+      "Gift": "Give the chosen PC 1 chip",
+      "None": "No rivals."
+    },
+    "Pack": {
+      "Import": "Import pack (.json)",
+      "Reset": "Back to the generic pack",
+      "ResetConfirm": "Forget the imported pack and use the generic one?",
+      "Imported": "Imported pack in use.",
+      "Default": "The generic pack that ships with the module is in use. Import your own.",
+      "Loaded": "Pack loaded: {name}",
+      "Invalid": "The pack has {n} problems (details in the console, F12).",
+      "BadJSON": "That file is not valid JSON.",
+      "Progress": "Progress",
+      "Jackpots": "Jackpots paid",
+      "Claimed": "Once-only wheel prizes won",
+      "Gifted": "Welcome gifts given",
+      "Triggers": "Private whispers",
+      "AnyGame": "any game",
+      "ToGM": "to the GM",
+      "ToPlayer": "to the player",
+      "ResetProgress": "Reset progress",
+      "ResetProgressConfirm": "Reset paid jackpots, won wheel prizes, welcome gifts and fired whispers?"
+    },
+    "Ledger": {
+      "None": "No casino nights yet.",
+      "Open": "open",
+      "Copy": "Copy Markdown",
+      "Sync": "Update page",
+      "Delete": "Delete night",
+      "DeleteConfirm": "Remove this night from the ledger? Its journal page stays.",
+      "DefaultName": "{casino} — {date}",
+      "Intro": "Razor ledger for the session log.",
+      "Value": "1 chip = {value} gp.",
+      "Empty": "Nobody played.",
+      "HouseNet": "House result",
+      "Log": "Log",
+      "ByHand": "changed by hand",
+      "Welcome": "Welcome gift",
+      "Col": {
+        "PC": "PC",
+        "Start": "Start",
+        "Bought": "Bought",
+        "Cashed": "Cashed",
+        "Wagered": "Wagered",
+        "Won": "Won",
+        "Net": "Net",
+        "Other": "Other",
+        "End": "End",
+        "Prizes": "Prizes"
+      },
+      "Kind": {
+        "buy": "bought",
+        "cash": "cashed",
+        "gift": "gift",
+        "wager": "wager",
+        "win": "win",
+        "stolen": "stolen",
+        "adjust": "adjustment",
+        "prize": "prize"
+      }
+    },
+    "Cage": {
+      "Buy": "Buy",
+      "Cash": "Cash out",
+      "Rate": "1 chip = {value} gp",
+      "Holds": "{name} holds {razors} chips and {gp} gp (1 chip = {value} gp)."
+    },
+    "Adjust": {
+      "Hint": "Positive adds, negative removes. Stolen always removes.",
+      "Amount": "Chips",
+      "Kind": "Kind",
+      "Note": "Note"
+    },
+    "Window": {
+      "Title": "Casino",
+      "NoCharacter": "You have no character here.",
+      "Reroll": "reroll ready"
+    },
+    "Item": {
+      "Razor": "Casino chip",
+      "Platinum": "Platinum chip",
+      "Description": "A casino chip of {casino}, worth {value} gp at the cages.",
+      "PlatinumDescription": "An exceptionally rare platinum chip of {casino}. It is not cashed at the cages."
+    },
+    "Chat": {
+      "Usage": "Usage: /chips, /slots, /wheel, /cage buy 5, /cage cash 5, /casino",
+      "NoActor": "Select your token or set your character first.",
+      "Razors": "{name}: {n} × {razor}"
+    },
+    "Notify": {
+      "OnlyGM": "Only the GM can do that.",
+      "NoGM": "No GM is connected, so the casino is closed.",
+      "Timeout": "The GM did not answer in time.",
+      "NoActor": "Character not found.",
+      "NotOwner": "You don't own {name}.",
+      "NoRival": "Rival not found.",
+      "RivalBroke": "{name} has no chips left.",
+      "NotEnough": "{name} has {have} chips, needs {need}.",
+      "NoGold": "{name} can't pay {cost} gp.",
+      "CageClosed": "The cages are closed.",
+      "FloorClosed": "The casino isn't open yet.",
+      "BadAmount": "That amount doesn't work.",
+      "BelowAnte": "The ante is {ante}.",
+      "NoTable": "No table is open.",
+      "NotSeated": "That seat isn't at this table.",
+      "NoBets": "Nobody has bet yet.",
+      "WheelCooldown": "{name} may spin again in {hours} h.",
+      "ItemMissing": "\"{name}\" was not found in the world or the compendiums. Import it (e.g. with Plutonium) and press Grant again.",
+      "Granted": "Granted: {name}",
+      "Welcomed": "Welcome gift ({n}) to: {names}",
+      "AllWelcomed": "Everyone already has their welcome gift.",
+      "NoPage": "The page hasn't been created yet.",
+      "Synced": "Ledger page updated.",
+      "Copied": "Copied to the clipboard."
+    },
+    "Settings": {
+      "AutoGrant": {
+        "Name": "Grant item prizes automatically",
+        "Hint": "Find prize items by name (world, then compendiums) and add them to the winner. If one can't be found, the card gets a Grant button for the GM."
+      },
+      "Heat": {
+        "Name": "Heat: wins before security notices",
+        "Hint": "Whisper the GM when a character reaches this many wins at one game in a night. 0 = off."
+      },
+      "WorldTime": {
+        "Name": "Wheel cooldown uses world time",
+        "Hint": "On: one spin per creature per N hours of in-game time. Off: one spin per creature per casino night."
+      },
+      "PadSpin": {
+        "Name": "Soundboard pad: wheel spin"
+      },
+      "PadJackpot": {
+        "Name": "Soundboard pad: jackpot"
+      },
+      "PadWin": {
+        "Name": "Soundboard pad: win"
+      },
+      "PadBust": {
+        "Name": "Soundboard pad: loss"
+      },
+      "Pad": {
+        "Hint": "Name of a Planar Soundboard pad to play. Leave empty for none."
+      },
+      "WheelFx": {
+        "Name": "Show the wheel animation",
+        "Hint": "Plays the three-ring wheel on screen when anyone spins."
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "planar-casino",
+  "title": "Planar Casino",
+  "description": "A casino night for dnd5e: casino chips as an inventory item, cages to buy and cash them, slot machines, a three-ring prize wheel, dice and betting tables with NPC rivals, and a per-night ledger for the session log. Content comes from a JSON pack you import.",
+  "version": "0.1.0",
+  "authors": [
+    { "name": "rkeytech" }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "relationships": {
+    "systems": [
+      { "id": "dnd5e", "type": "system", "compatibility": { "minimum": "6.0.0" } }
+    ]
+  },
+  "esmodules": ["scripts/main.mjs"],
+  "socket": true,
+  "styles": ["styles/casino.css"],
+  "languages": [
+    { "lang": "en", "name": "English", "path": "lang/en.json" },
+    { "lang": "el", "name": "Ελληνικά", "path": "lang/el.json" }
+  ],
+  "url": "https://github.com/zacharatos/planar-casino",
+  "manifest": "https://github.com/zacharatos/planar-casino/releases/latest/download/module.json",
+  "download": "https://github.com/zacharatos/planar-casino/releases/download/v0.1.0/module.zip",
+  "bugs": "https://github.com/zacharatos/planar-casino/issues",
+  "readme": "https://github.com/zacharatos/planar-casino#readme",
+  "changelog": "https://github.com/zacharatos/planar-casino/blob/main/CHANGELOG.md",
+  "license": "https://github.com/zacharatos/planar-casino/blob/main/LICENSE",
+  "flags": {}
+}

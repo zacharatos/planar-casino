@@ -1,0 +1,386 @@
+{
+  "planarCasinoPack": 1,
+  "id": "default",
+  "name": "Planar Casino (generic)",
+  "description": "A generic casino that ships with the module so it works out of the box. Replace it with your own pack from the GM panel.",
+  "casino": {
+    "name": "The Gilded Gate",
+    "razorName": "Casino chip",
+    "razorValue": 10,
+    "welcomeGift": 10,
+    "platinumName": "Platinum chip"
+  },
+  "slots": {
+    "cost": 1,
+    "machine": "Clockwork slot machine",
+    "symbols": [
+      {
+        "label": "Bell",
+        "icon": "🔔",
+        "pair": {
+          "type": "razors",
+          "amount": 1,
+          "label": "1 chip back"
+        },
+        "jackpot": {
+          "type": "gp",
+          "amount": 150,
+          "label": "150 gp"
+        }
+      },
+      {
+        "label": "Lantern",
+        "icon": "🏮",
+        "pair": {
+          "type": "note",
+          "label": "A paper lantern (it glows for an hour)"
+        },
+        "jackpot": {
+          "type": "item",
+          "item": "Potion of Healing",
+          "quantity": 3,
+          "label": "3 Potions of Healing"
+        }
+      },
+      {
+        "label": "Mask",
+        "icon": "🎭",
+        "pair": {
+          "type": "gp",
+          "formula": "2d4",
+          "label": "{n} gp"
+        },
+        "jackpot": {
+          "type": "item",
+          "item": "Hat of Disguise",
+          "label": "Hat of Disguise"
+        }
+      },
+      {
+        "label": "Anchor",
+        "icon": "⚓",
+        "pair": {
+          "type": "razors",
+          "amount": 2,
+          "label": "2 chips"
+        },
+        "jackpot": {
+          "type": "item",
+          "item": "Cloak of Protection",
+          "label": "Cloak of Protection"
+        }
+      },
+      {
+        "label": "Crown",
+        "icon": "👑",
+        "pair": {
+          "type": "gp",
+          "amount": 20,
+          "label": "20 gp"
+        },
+        "jackpot": {
+          "type": "item",
+          "item": "Bag of Holding",
+          "label": "Bag of Holding"
+        }
+      },
+      {
+        "label": "Dragon",
+        "icon": "🐉",
+        "pair": {
+          "type": "damage",
+          "formula": "1d4",
+          "damageType": "cold",
+          "label": "{n} cold damage (the machine bites)"
+        },
+        "jackpot": {
+          "type": "scroll",
+          "spell": "Lightning Bolt",
+          "label": "Spell scroll of lightning bolt"
+        }
+      }
+    ],
+    "special": {
+      "faces": [
+        1,
+        3,
+        5
+      ],
+      "label": "Odd streak!",
+      "text": "Next pull: you may reroll any of the dice."
+    }
+  },
+  "wheel": {
+    "name": "The Big Wheel",
+    "cost": 5,
+    "cooldownHours": 24,
+    "maxSteps": 10,
+    "rings": {
+      "outer": [
+        {
+          "label": "No prize"
+        },
+        {
+          "label": "5 gp",
+          "prize": {
+            "label": "5 gp",
+            "type": "gp",
+            "amount": 5
+          }
+        },
+        {
+          "label": "No prize"
+        },
+        {
+          "label": "1 chip",
+          "prize": {
+            "label": "1 chip",
+            "type": "razors",
+            "amount": 1
+          }
+        },
+        {
+          "label": "No prize"
+        },
+        {
+          "label": "Snack",
+          "prize": {
+            "label": "A plate of candied figs",
+            "type": "note"
+          }
+        },
+        {
+          "label": "3 chips",
+          "prize": {
+            "label": "3 chips",
+            "type": "razors",
+            "amount": 3
+          }
+        },
+        {
+          "label": "No prize"
+        },
+        {
+          "label": "Postcard",
+          "prize": {
+            "label": "A postcard of the casino",
+            "type": "note"
+          }
+        },
+        {
+          "label": "Spin middle",
+          "goto": "middle"
+        }
+      ],
+      "middle": [
+        {
+          "label": "25 gp",
+          "prize": {
+            "label": "25 gp",
+            "type": "gp",
+            "amount": 25
+          }
+        },
+        {
+          "label": "Spin outer",
+          "goto": "outer"
+        },
+        {
+          "label": "Antitoxin",
+          "prize": {
+            "label": "Antitoxin",
+            "type": "item",
+            "item": "Antitoxin"
+          }
+        },
+        {
+          "label": "No prize"
+        },
+        {
+          "label": "8 chips",
+          "prize": {
+            "label": "8 chips",
+            "type": "razors",
+            "amount": 8
+          }
+        },
+        {
+          "label": "Rope",
+          "prize": {
+            "label": "Rope of Climbing",
+            "type": "item",
+            "item": "Rope of Climbing"
+          }
+        },
+        {
+          "label": "Lute",
+          "prize": {
+            "label": "A fine lute",
+            "type": "note"
+          }
+        },
+        {
+          "label": "Healing",
+          "prize": {
+            "label": "Potion of Greater Healing",
+            "type": "item",
+            "item": "Potion of Greater Healing"
+          }
+        },
+        {
+          "label": "No prize"
+        },
+        {
+          "label": "Spin inner",
+          "goto": "inner"
+        }
+      ],
+      "inner": [
+        {
+          "label": "250 gp",
+          "prize": {
+            "label": "250 gp",
+            "type": "gp",
+            "amount": 250
+          }
+        },
+        {
+          "label": "Boots",
+          "prize": {
+            "label": "Boots of Elvenkind",
+            "type": "item",
+            "item": "Boots of Elvenkind"
+          }
+        },
+        {
+          "label": "Spin outer",
+          "goto": "outer"
+        },
+        {
+          "label": "Gem",
+          "prize": {
+            "label": "A 100 gp gem",
+            "type": "note"
+          }
+        },
+        {
+          "label": "Wand",
+          "prize": {
+            "label": "Wand of Magic Missiles",
+            "type": "item",
+            "item": "Wand of Magic Missiles"
+          }
+        },
+        {
+          "label": "Portrait",
+          "prize": {
+            "label": "Your portrait hangs in the lobby for a month",
+            "type": "note"
+          }
+        },
+        {
+          "label": "Grand prize",
+          "prize": {
+            "label": "The grand prize on display",
+            "type": "note"
+          },
+          "once": true
+        },
+        {
+          "label": "Free suite",
+          "prize": {
+            "label": "A free suite for a tenday",
+            "type": "note"
+          }
+        },
+        {
+          "label": "20 chips",
+          "prize": {
+            "label": "20 chips",
+            "type": "razors",
+            "amount": 20
+          }
+        },
+        {
+          "label": "Lucky stone",
+          "prize": {
+            "label": "Stone of Good Luck",
+            "type": "item",
+            "item": "Stone of Good Luck"
+          }
+        }
+      ]
+    }
+  },
+  "bones": {
+    "name": "Bones",
+    "ante": 1,
+    "dealer": {
+      "name": "The croupier",
+      "bones": 3
+    }
+  },
+  "board": {
+    "name": "The Twenty",
+    "multiplier": 5,
+    "dealer": {
+      "name": "The dealer"
+    }
+  },
+  "rivals": [
+    {
+      "id": "cautious",
+      "name": "Old Merrow",
+      "bankroll": 20,
+      "bones": [
+        2,
+        3
+      ],
+      "numbers": 2,
+      "wager": 1,
+      "notes": "Bets small, complains loudly."
+    },
+    {
+      "id": "bold",
+      "name": "Vasha the Bold",
+      "bankroll": 40,
+      "bones": [
+        4,
+        6
+      ],
+      "numbers": 4,
+      "wager": 2,
+      "notes": "Always ups the ante."
+    },
+    {
+      "id": "lucky",
+      "name": "Pip Seven",
+      "bankroll": 15,
+      "bones": 3,
+      "numbers": 1,
+      "wager": 1,
+      "favorites": [
+        7
+      ],
+      "notes": "Only ever bets on seven."
+    }
+  ],
+  "timedEvents": [
+    {
+      "hour": 1,
+      "title": "Hour 1",
+      "text": "Something happens on the casino floor."
+    },
+    {
+      "hour": 2,
+      "title": "Hour 2",
+      "text": "Trouble at the bar."
+    },
+    {
+      "hour": 3,
+      "title": "Hour 3",
+      "text": "The owner arrives."
+    }
+  ],
+  "triggers": []
+}

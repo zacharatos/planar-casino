@@ -1,0 +1,111 @@
+/* Planar Casino — scoped to .planar-casino (windows), .planar-casino-card (chat) and .planar-casino-wheel (overlay). */
+
+.planar-casino {
+  --pc-gold: #c9a14e;
+  --pc-gold-soft: rgba(201, 161, 78, 0.18);
+  --pc-red: #9b2c2c;
+  --pc-green: #3f7d4f;
+  --pc-ink: var(--color-text-primary, #191813);
+  --pc-muted: var(--color-text-secondary, #6b6458);
+}
+
+.planar-casino .window-content { padding: 0.5rem 0.75rem; overflow-y: auto; }
+.planar-casino button { white-space: nowrap; }
+.planar-casino button i { margin-right: 0.15rem; }
+.planar-casino button.icon { width: 2rem; padding: 0; }
+.planar-casino button.icon i { margin: 0; }
+.planar-casino button.primary { border-color: var(--pc-gold); background: var(--pc-gold-soft); }
+
+.planar-casino .pc-tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--pc-gold); margin-bottom: 0.5rem; }
+.planar-casino .pc-tab { padding: 0.35rem 0.7rem; border-radius: 4px 4px 0 0; cursor: pointer; }
+.planar-casino .pc-tab.active { background: var(--pc-gold-soft); border: 1px solid var(--pc-gold); border-bottom: none; font-weight: bold; }
+
+.planar-casino .pc-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 0.35rem 0; }
+.planar-casino .pc-row label { display: inline-flex; align-items: center; gap: 0.25rem; }
+.planar-casino .pc-chip { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.1rem 0.55rem; border-radius: 999px; border: 1px solid var(--pc-muted); font-size: 0.85em; }
+.planar-casino .pc-chip.on { border-color: var(--pc-gold); background: var(--pc-gold-soft); }
+.planar-casino .pc-clock { font-variant-numeric: tabular-nums; }
+.planar-casino .pc-hint { color: var(--pc-muted); font-size: 0.9em; margin: 0.25rem 0; }
+.planar-casino .pc-ok { color: var(--pc-green); }
+.planar-casino .pc-wait { color: var(--pc-red); }
+
+.planar-casino .pc-grid { width: 100%; border-collapse: collapse; margin: 0.4rem 0; }
+.planar-casino .pc-grid th { text-align: left; font-size: 0.85em; color: var(--pc-muted); border-bottom: 1px solid var(--pc-gold); }
+.planar-casino .pc-grid td { padding: 0.2rem 0.3rem; border-bottom: 1px solid rgba(0, 0, 0, 0.08); vertical-align: middle; }
+.planar-casino .pc-grid.small td, .planar-casino .pc-grid.small th { font-size: 0.85em; padding: 0.1rem 0.25rem; }
+.planar-casino .pc-name img { width: 26px; height: 26px; object-fit: cover; border: none; border-radius: 3px; vertical-align: middle; }
+.planar-casino .pc-num { font-variant-numeric: tabular-nums; text-align: right; }
+.planar-casino .pc-acts { display: flex; gap: 0.2rem; flex-wrap: wrap; justify-content: flex-end; }
+.planar-casino .pc-acts select { width: 8rem; }
+.planar-casino .pc-bankroll { width: 4.5rem; }
+
+.planar-casino .pc-form { display: grid; gap: 0.4rem; }
+.planar-casino .pc-form.inline { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.planar-casino .pc-form.inline input[type=number] { width: 4.5rem; }
+.planar-casino fieldset { border: 1px solid var(--pc-gold-soft); border-radius: 4px; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.planar-casino .pc-card { border: 1px solid var(--pc-gold-soft); border-radius: 6px; padding: 0.4rem 0.6rem; margin: 0.5rem 0; }
+.planar-casino .pc-card h3 { border: none; margin: 0.2rem 0; }
+.planar-casino .pc-list { margin: 0.2rem 0; padding-left: 1rem; }
+
+/* Player window */
+.planar-casino.player .pc-player { border: 1px solid var(--pc-gold-soft); border-radius: 6px; padding: 0.4rem 0.6rem; margin-bottom: 0.6rem; }
+.planar-casino.player .pc-player header img { width: 40px; height: 40px; object-fit: cover; border: 1px solid var(--pc-gold); border-radius: 50%; }
+.planar-casino.player .pc-player header h3 { flex: 1; border: none; margin: 0; }
+.planar-casino.player .pc-amount { width: 4.5rem; }
+.planar-casino.player .pc-games button.big { flex: 1; min-height: 3rem; font-size: 1.05em; }
+.planar-casino .pc-table-seat { border-top: 1px dashed var(--pc-gold); margin-top: 0.4rem; padding-top: 0.3rem; }
+.planar-casino .pc-table-seat h4 { margin: 0.2rem 0; }
+.planar-casino .pc-table-seat input[type=number] { width: 4rem; }
+.planar-casino .pc-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; }
+.planar-casino .pc-cell { position: relative; height: 2.4rem; padding: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #2d2618; color: #f2e6c4; border: none; }
+.planar-casino .pc-cell:nth-child(even) { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.planar-casino .pc-cell span { font-size: 0.8em; }
+.planar-casino .pc-cell.on { background: var(--pc-gold); color: #1a1408; }
+.planar-casino .pc-cell b { position: absolute; right: 30%; bottom: 0.1rem; font-size: 0.7em; }
+.planar-casino .pc-reroll { display: flex; align-items: center; gap: 0.4rem; margin: 0.2rem 0; }
+
+/* Sheet counter */
+.pc-sheet-razors { display: inline-flex; align-items: center; gap: 0.25rem; color: #b8892f; }
+
+/* Chat cards */
+.planar-casino-card header { font-size: 0.85em; color: #8a6a2a; border-bottom: 1px solid #c9a14e; margin-bottom: 0.3rem; padding-bottom: 0.15rem; }
+.planar-casino-card .pc-who { font-weight: bold; margin: 0.2rem 0; }
+.planar-casino-card .pc-reels { display: flex; gap: 0.3rem; justify-content: center; margin: 0.3rem 0; }
+.planar-casino-card .pc-reel { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0.3rem 0.1rem; border: 2px solid #c9a14e; border-radius: 6px; background: #1d1810; color: #f2e6c4; font-size: 0.85em; }
+.planar-casino-card .pc-reel.rerolled { border-style: dashed; }
+.planar-casino-card .pc-sym { font-size: 1.6em; line-height: 1.2; }
+.planar-casino-card .pc-die { display: inline-block; min-width: 1.4em; padding: 0 0.25em; margin: 0 0.1em; border: 1px solid #c9a14e; border-radius: 4px; text-align: center; font-weight: bold; background: rgba(201, 161, 78, 0.15); }
+.planar-casino-card .pc-die.bust { background: #9b2c2c; color: #fff; }
+.planar-casino-card .pc-die.d20 { font-size: 1.6em; padding: 0.1em 0.4em; }
+.planar-casino-card .pc-d20 { text-align: center; margin: 0.3rem 0; }
+.planar-casino-card .pc-result { text-align: center; font-weight: bold; }
+.planar-casino-card .pc-result.jackpot { color: #b8892f; font-size: 1.15em; }
+.planar-casino-card .pc-result.none { color: #7a6f60; font-weight: normal; font-style: italic; }
+.planar-casino-card .pc-prize { text-align: center; }
+.planar-casino-card .pc-path { margin: 0.2rem 0 0.3rem 1.2rem; padding: 0; }
+.planar-casino-card .pc-ring { font-size: 0.8em; color: #7a6f60; }
+.planar-casino-card .pc-table { width: 100%; font-size: 0.9em; }
+.planar-casino-card .pc-table tr.won td { font-weight: bold; color: #3f7d4f; }
+.planar-casino-card .pc-table tr.bust td { color: #9b2c2c; }
+.planar-casino-card .pc-bet { display: inline-block; padding: 0 0.2em; border-radius: 3px; }
+.planar-casino-card .pc-bet.hit { background: #c9a14e; color: #1a1408; font-weight: bold; }
+.planar-casino-card .pc-pot { font-size: 0.85em; color: #7a6f60; text-align: right; }
+.planar-casino-card .pc-grant { margin-top: 0.3rem; width: 100%; }
+.planar-casino-card.whisper { font-style: italic; }
+
+/* Wheel overlay */
+.planar-casino-wheel { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(8, 5, 2, 0.72); opacity: 0; transition: opacity 0.35s ease; cursor: pointer; }
+.planar-casino-wheel.open { opacity: 1; }
+.planar-casino-wheel.closing { opacity: 0; }
+.planar-casino-wheel .pc-wheel-box { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: #f2e6c4; text-align: center; }
+.planar-casino-wheel header h2 { margin: 0; border: none; color: #f2d98a; font-size: 2rem; letter-spacing: 0.04em; text-shadow: 0 2px 8px #000; }
+.planar-casino-wheel header p { margin: 0; font-size: 1.1rem; }
+.planar-casino-wheel .pc-wheel { width: min(72vh, 86vw); height: min(72vh, 86vw); filter: drop-shadow(0 0 24px rgba(201, 161, 78, 0.35)); }
+.planar-casino-wheel .ring { transform-box: view-box; opacity: 0.55; transition: opacity 0.3s; }
+.planar-casino-wheel .ring.active { opacity: 1; }
+.planar-casino-wheel .seg text { fill: #f2e6c4; font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif; pointer-events: none; }
+.planar-casino-wheel .seg.hit path { fill: #c9a14e; }
+.planar-casino-wheel .seg.hit text { fill: #1a1408; font-weight: bold; }
+.planar-casino-wheel .pc-wheel-result { min-height: 2rem; font-size: 1.5rem; color: #f2d98a; opacity: 0; transform: translateY(8px); transition: opacity 0.4s, transform 0.4s; text-shadow: 0 2px 6px #000; }
+.planar-casino-wheel .pc-wheel-result.shown { opacity: 1; transform: none; }
+.planar-casino-wheel .pc-wheel-hint { font-size: 0.8rem; opacity: 0.6; margin: 0; }
