@@ -2,6 +2,12 @@
 
 All notable changes to this module are listed here. The release workflow uses the section for the tagged version as the release notes.
 
+## [Unreleased]
+
+### Fixed
+
+- **Pack → Import pack** did nothing after choosing a file: the panel re-rendered right after the click and replaced the hidden file input, so its change event never reached the panel. The file picker now lives outside the panel.
+
 ## [0.1.0]
 
 First release.

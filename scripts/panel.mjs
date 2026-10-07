@@ -185,7 +185,7 @@ export class CasinoPanel extends ApplicationV2 {
         <p>${esc(p?.description ?? "")}</p>
         <p class="pc-hint">${esc(imported ? t("Pack.Imported") : t("Pack.Default"))}</p>
         <div class="pc-row">
-          <label class="pc-file">${btn("pack-pick", "fa-file-import", t("Pack.Import"))}<input type="file" name="packfile" accept=".json,application/json" hidden></label>
+          ${btn("pack-pick", "fa-file-import", t("Pack.Import"))}
           ${imported ? btn("pack-reset", "fa-rotate", t("Pack.Reset")) : ""}
         </div>
       </div>
@@ -218,17 +218,6 @@ export class CasinoPanel extends ApplicationV2 {
     const el = ev.target;
     if (el.name === "floorOpen" || el.name === "cageOpen") return setSetting(el.name, el.checked);
     if (el.classList.contains("pc-bankroll")) return updateRival(el.dataset.rival, { bankroll: Math.max(0, Math.trunc(Number(el.value) || 0)) });
-    if (el.name === "packfile" && el.files?.[0]) {
-      try {
-        const data = JSON.parse(await el.files[0].text());
-        const errors = await importPack(data);
-        if (errors.length) {
-          ui.notifications.error(t("Pack.Invalid", { n: errors.length }));
-          console.warn(`${MODULE_ID} | pack problems:\n- ${errors.join("\n- ")}`);
-        } else info("Pack.Loaded", { name: data.name ?? data.id });
-      } catch (err) { ui.notifications.error(t("Pack.BadJSON")); console.warn(err); }
-      el.value = "";
-    }
   }
 
   async #onClick(ev) {
@@ -274,12 +263,46 @@ export class CasinoPanel extends ApplicationV2 {
         case "rival-gift": { const to = this.element.querySelector(`select.pc-gift-to[data-rival="${CSS.escape(who.rivalId)}"]`)?.value; if (to) await call("rival-gift", { rivalId: who.rivalId, actorId: to, amount: 1 }); break; }
         case "rival-remove": await saveRivals(rivals().filter(r => r.id !== who.rivalId)); break;
         case "rival-add": await this.#addRival(); break;
-        case "pack-pick": this.element.querySelector("input[name=packfile]")?.click(); break;
+        case "pack-pick": this.#pickPack(); break;
         case "pack-reset": if (await DialogV2.confirm({ window: { title: t("Pack.Reset") }, content: `<p>${esc(t("Pack.ResetConfirm"))}</p>` })) await resetPack(); break;
         case "progress-reset": if (await DialogV2.confirm({ window: { title: t("Pack.ResetProgress") }, content: `<p>${esc(t("Pack.ResetProgressConfirm"))}</p>` })) await setSetting("progress", { jackpots: [], claimed: [], fired: [], gifted: [], hour: 0 }); break;
       }
     } catch (err) {
       ui.notifications.warn(err.message);
+    }
+    this.refreshSoon();
+  }
+
+  /**
+   * Ask for a pack file. The file input lives outside the panel on purpose: the panel re-renders
+   * right after the click, which would replace an input inside it before the user picks a file,
+   * and the browser's change event would then reach a detached element nobody listens to.
+   */
+  #pickPack() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json,application/json";
+    input.style.display = "none";
+    input.addEventListener("change", async () => {
+      const file = input.files?.[0];
+      input.remove();
+      if (file) await this.#importPackFile(file);
+    }, { once: true });
+    document.body.append(input);
+    input.click();
+  }
+
+  async #importPackFile(file) {
+    try {
+      const data = JSON.parse(await file.text());
+      const errors = await importPack(data);
+      if (errors.length) {
+        ui.notifications.error(t("Pack.Invalid", { n: errors.length }));
+        console.warn(`${MODULE_ID} | pack problems:\n- ${errors.join("\n- ")}`);
+      } else info("Pack.Loaded", { name: data.name ?? data.id });
+    } catch (err) {
+      ui.notifications.error(t("Pack.BadJSON"));
+      console.warn(`${MODULE_ID} | pack import failed`, err);
     }
     this.refreshSoon();
   }
