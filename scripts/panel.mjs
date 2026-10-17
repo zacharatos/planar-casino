@@ -6,6 +6,15 @@ import { escapeHTML as esc, summarizeNight } from "./util.mjs";
 import { pack, numbers, rivals, saveRivals, updateRival, progress, table, importPack, resetPack, casinoName, razorName } from "./state.mjs";
 import { razorCount, playerCharacters } from "./razors.mjs";
 import { ledger, activeNight, nightMarkdown, deleteNight } from "./ledger.mjs";
+
+/** An archived night's full log is in its journal page; copy from there. */
+async function nightCopyText(night) {
+  if (night.archived && night.page) {
+    const page = await fromUuid(night.page).catch(() => null);
+    if (page?.text?.markdown) return page.text.markdown;
+  }
+  return nightMarkdown(night);
+}
 import { spinWait } from "./games.mjs";
 import { call } from "./rpc.mjs";
 import { CasinoWindow } from "./window.mjs";
@@ -208,7 +217,7 @@ export class CasinoPanel extends ApplicationV2 {
       const d = `data-id="${n.id}"`;
       return `<div class="pc-card"><h3>${esc(n.name)} ${n.id === l.activeNight ? `<span class="pc-chip on">${esc(t("Ledger.Open"))}</span>` : ""}</h3>
         <table class="pc-grid small"><thead><tr><th>${esc(t("Ledger.Col.PC"))}</th><th>${esc(t("Ledger.Col.Start"))}</th><th>${esc(t("Ledger.Col.Bought"))}</th><th>${esc(t("Ledger.Col.Cashed"))}</th><th>${esc(t("Ledger.Col.Wagered"))}</th><th>${esc(t("Ledger.Col.Won"))}</th><th>${esc(t("Ledger.Col.Net"))}</th><th>${esc(t("Ledger.Col.End"))}</th></tr></thead><tbody>${rows}</tbody></table>
-        <div class="pc-row">${btn("night-page", "fa-book-open", t("Panel.LedgerPage"), d)}${btn("night-copy", "fa-copy", t("Ledger.Copy"), d)}${btn("night-sync", "fa-arrows-rotate", t("Ledger.Sync"), d)}${btn("night-delete", "fa-trash", "", d, "icon")}</div></div>`;
+        <div class="pc-row">${btn("night-page", "fa-book-open", t("Panel.LedgerPage"), d)}${btn("night-copy", "fa-copy", t("Ledger.Copy"), d)}${n.archived ? "" : btn("night-sync", "fa-arrows-rotate", t("Ledger.Sync"), d)}${btn("night-delete", "fa-trash", "", d, "icon")}</div></div>`;
     }).join("");
   }
 
@@ -247,7 +256,7 @@ export class CasinoPanel extends ApplicationV2 {
         case "next-hour": await call("next-hour"); break;
         case "night-page": { const n = ledger().nights.find(x => x.id === el.dataset.id); const page = n?.page ? await fromUuid(n.page) : null; if (page) page.parent.sheet.render(true, { pageId: page.id }); else warn("Notify.NoPage"); break; }
         case "night-sync": await call("night-sync", { id: el.dataset.id }); info("Notify.Synced"); break;
-        case "night-copy": { const n = ledger().nights.find(x => x.id === el.dataset.id); if (n) { const md = nightMarkdown(n); if (game.clipboard?.copyPlainText) await game.clipboard.copyPlainText(md); else await navigator.clipboard.writeText(md); info("Notify.Copied"); } break; }
+        case "night-copy": { const n = ledger().nights.find(x => x.id === el.dataset.id); if (n) { const md = await nightCopyText(n); if (game.clipboard?.copyPlainText) await game.clipboard.copyPlainText(md); else await navigator.clipboard.writeText(md); info("Notify.Copied"); } break; }
         case "night-delete": if (await DialogV2.confirm({ window: { title: t("Ledger.Delete") }, content: `<p>${esc(t("Ledger.DeleteConfirm"))}</p>` })) await deleteNight(el.dataset.id); break;
         case "table-open": {
           const root = this.element;

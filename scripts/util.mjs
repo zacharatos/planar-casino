@@ -260,6 +260,8 @@ export function entryDelta(entry) {
  * `start` maps actorId -> razors held when the night opened.
  */
 export function summarizeNight(night) {
+  // An archived (closed) night keeps only its totals; its full log lives in its journal page.
+  if (night?.archived && Array.isArray(night.rows)) return night.rows.map(r => ({ ...r, prizes: [...(r.prizes ?? [])] }));
   const rows = new Map();
   const row = (id, name) => {
     if (!rows.has(id)) rows.set(id, { actorId: id, name, start: int(night.start?.[id]), bought: 0, cashed: 0, wagered: 0, won: 0, other: 0, prizes: [] });
@@ -323,6 +325,18 @@ export function ledgerMarkdown(night, labels, { razorValue = 10 } = {}) {
     out.push(`- \`${e.time ?? ""}\` **${cell(who)}** · ${L.kinds?.[e.kind] ?? e.kind}${amt}${e.game ? ` · ${L.games?.[e.game] ?? e.game}` : ""}${e.note ? ` · ${cell(e.note)}` : ""}`);
   }
   return out.join("\n") + "\n";
+}
+
+/**
+ * A closed night, slimmed down for the world setting: its totals stay (the GM panel shows them),
+ * its entry-by-entry log goes (the night's journal page already holds it). Every razor movement
+ * rewrites the whole ledger setting and sends it to every client, so old logs shouldn't ride along.
+ * Idempotent; an open night or one without a page is returned unchanged.
+ */
+export function archiveNight(night) {
+  if (!night || night.archived || !night.closedAt || !night.page) return night;
+  const { entries, ...rest } = night;
+  return { ...rest, archived: true, entryCount: (entries ?? []).length, rows: summarizeNight(night) };
 }
 
 /**

@@ -35,7 +35,7 @@ There is no build step: Foundry loads `scripts/main.mjs` directly.
 
 - **Who writes.** Only the active GM's client writes world data, moves chips and posts results. A player's click calls `call(action, payload)` (`rpc.mjs`), which runs the handler locally if you are the active GM or sends it over the module socket otherwise and waits for the answer. With no GM connected the casino is closed.
 - **One at a time.** Every handler in `games.mjs` runs inside `serial()` (`ledger.mjs`), a promise queue, so two quick pulls never overwrite each other's ledger write. Never call `serial()` inside a `serial()` block (deadlock). The wheel's prize is applied in a second `serial()` call scheduled after the animation.
-- **Data.** Hidden world settings: `pack` (imported pack or null), `ledger` (`{activeNight, nights:[{id, name, start, names, entries, page}]}`), `rivals`, `table`, `progress` (`jackpots`, `claimed`, `fired`, `gifted`, `hour`), `cageOpen`, `floorOpen`. Their `onChange` re-renders open windows on every client. Actor flags: `reroll`, `lastSpin`, `lastSpinNight`. Chip items: `flags.planar-casino.chip = "razor" | "platinum"`.
+- **Data.** Hidden world settings: `pack` (imported pack or null), `ledger` (`{activeNight, nights:[{id, name, start, names, entries, page}]}`; a closed night with a page is archived by `archiveNight` to `{…, archived: true, entryCount, rows}` without `entries`, by `compactLedger` on close and on the active GM's `ready`), `rivals`, `table`, `progress` (`jackpots`, `claimed`, `fired`, `gifted`, `hour`), `cageOpen`, `floorOpen`. Their `onChange` re-renders open windows on every client. Actor flags: `reroll`, `lastSpin`, `lastSpinNight`. Chip items: `flags.planar-casino.chip = "razor" | "platinum"`.
 - **Ledger page.** Rebuilt from the night's entries 1.5 s after the last change (`ledgerMarkdown` in `util.mjs`). With Planar Codex active the page is created with `api.createCodexNote` and rendered with `api.convert`, so it exports to the vault; otherwise a Markdown journal page in a "Planar Casino" folder.
 - **Hand-made changes.** The GM client remembers each chip stack's quantity; a create/update/delete it didn't make itself (no `planar-casino` operation option) is logged as an adjustment.
 
@@ -99,6 +99,7 @@ Reload the browser (F5) after each change. Use a second browser logged in as a p
 **Ledger**
 - Open night, play a bit, Close night: the journal page (Codex note with Planar Codex) shows the table and the log; numbers match the sheets. Copy Markdown pastes the same text. Delete removes the night from the panel but keeps the page.
 - With Planar Codex: Export vault includes the ledger note.
+- After Close night: the night's card in the panel still shows the same totals; **Sync** is gone for it; **Copy** pastes the full page including the log; the page is unchanged. Open and close a second night: the first stays archived, the second archives on close. Reload as GM: nothing changes (compaction is idempotent).
 
 **Chat**
 - `/chips`, `/slots`, `/wheel`, `/cage buy 2`, `/cage cash 1`, `/casino` as a player with an assigned character, and as the GM with a token selected. `/cage` alone shows the usage.
@@ -108,7 +109,7 @@ Reload the browser (F5) after each change. Use a second browser logged in as a p
 - **New user-facing text:** add the key to `lang/en.json` and `lang/el.json`. The language test fails if they differ.
 - **New pure logic:** put it in `util.mjs` with a test.
 - **Pack format:** `validatePack` checks the shape the engine relies on. A breaking change bumps `PACK_SCHEMA` and needs a note in the README and the changelog.
-- **Ledger:** entries are append-only; `summarizeNight` derives everything. Add a new `kind` to `KINDS` (with its sign) and to the language files.
+- **Ledger:** entries are append-only; `summarizeNight` derives everything (an archived night returns its stored `rows`). Don't keep growing data in a world setting: every write sends the whole value to every client. Add a new `kind` to `KINDS` (with its sign) and to the language files.
 - **Socket:** add a GM action with `handle(name, fn)` in `games.mjs` and wrap the body in `serial()`; check ownership with `gambler()` or `gmOnly()`.
 
 ## Versions

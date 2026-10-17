@@ -2,7 +2,7 @@ import { MODULE_ID } from "./constants.mjs";
 import { registerSettings, setting } from "./settings.mjs";
 import { loadDefaultPack, pack } from "./state.mjs";
 import { razorCount, watchManualChanges, playerCharacters, isChip } from "./razors.mjs";
-import { setHoldingsProvider } from "./ledger.mjs";
+import { setHoldingsProvider, compactLedger, serial } from "./ledger.mjs";
 import { registerSocket, onPrompt, setWheelPlayer, call } from "./rpc.mjs";
 import { playWheel } from "./wheel-fx.mjs";
 import { CasinoPanel } from "./panel.mjs";
@@ -40,6 +40,8 @@ Hooks.once("ready", async () => {
   setHoldingsProvider(() => playerCharacters().map(a => ({ id: a.id, name: a.name, count: razorCount(a) })));
   onPrompt("reroll", rerollPrompt);
   if (game.user.isGM) watchManualChanges();
+  // 1.1.0: closed nights keep only their totals in the ledger setting (their log is in their page).
+  if (game.users.activeGM?.isSelf) serial(compactLedger).catch(err => console.warn(`${MODULE_ID} | ledger compaction`, err));
   const module = game.modules.get(MODULE_ID);
   if (module) module.api = {
     open: () => CasinoPanel.open(),

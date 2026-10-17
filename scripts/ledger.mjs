@@ -2,7 +2,7 @@
 // (a Planar Codex note when the Codex is installed, so it reaches the vault on export).
 import { MODULE_ID, LEDGER_FOLDER } from "./constants.mjs";
 import { setting, setSetting } from "./settings.mjs";
-import { ledgerMarkdown, summarizeNight, clock } from "./util.mjs";
+import { ledgerMarkdown, summarizeNight, clock, archiveNight } from "./util.mjs";
 import { numbers, casinoName } from "./state.mjs";
 import { t } from "./i18n.mjs";
 
@@ -48,7 +48,21 @@ export async function closeNight() {
   l.activeNight = null;
   await setSetting("ledger", l);
   await syncJournal(night.id);
+  await compactLedger();
   return night;
+}
+
+/** Archive closed nights whose journal page is written (see archiveNight). Safe to run any time. */
+export async function compactLedger() {
+  const l = clone(ledger());
+  let changed = false;
+  l.nights = l.nights.map(n => {
+    const a = archiveNight(n);
+    if (a !== n) changed = true;
+    return a;
+  });
+  if (changed) await setSetting("ledger", l);
+  return changed;
 }
 
 /** Holdings provider set by main.mjs (avoids an import cycle with razors.mjs). */
@@ -103,6 +117,8 @@ function toHTML(markdown) {
 export async function syncJournal(nightId) {
   const night = nightById(nightId);
   if (!night) return;
+  // An archived night's page is final: rewriting it from the slim copy would drop its log.
+  if (night.archived) return night.page ? fromUuid(night.page).catch(() => null) : null;
   const markdown = nightMarkdown(night);
   const codex = game.modules.get("planar-codex");
   const codexApi = codex?.active ? codex.api : null;

@@ -266,3 +266,28 @@ test("prizeText and escapeHTML", () => {
   assert.equal(U.prizeText(null), "");
   assert.equal(U.escapeHTML(`<a href="x">'&`), "&lt;a href=&quot;x&quot;&gt;&#39;&amp;");
 });
+
+test("archiveNight keeps a closed night's totals and drops its log; open or page-less nights stay", () => {
+  const closed = {
+    id: "n1", name: "Night", closedAt: 1, page: "JournalEntry.x.JournalEntryPage.y",
+    start: { a: 5 }, names: { a: "Ilsa" },
+    entries: [
+      { actorId: "a", actorName: "Ilsa", kind: "wager", amount: 2, game: "slots" },
+      { actorId: "a", actorName: "Ilsa", kind: "win", amount: 6, game: "slots" },
+      { actorId: "a", actorName: "Ilsa", kind: "prize", note: "Scroll" }
+    ]
+  };
+  const before = U.summarizeNight(closed);
+  const a = U.archiveNight(closed);
+  assert.equal(a.archived, true);
+  assert.equal(a.entries, undefined, "the log is gone from the setting");
+  assert.equal(a.entryCount, 3);
+  assert.deepEqual(U.summarizeNight(a), before, "the panel's totals are unchanged");
+  assert.equal(U.archiveNight(a), a, "idempotent");
+  const open = { ...closed, closedAt: null };
+  assert.equal(U.archiveNight(open), open, "an open night is never archived");
+  const noPage = { ...closed, page: null };
+  assert.equal(U.archiveNight(noPage), noPage, "without a page the log would be lost, so it stays");
+  U.summarizeNight(a)[0].prizes.push("x");
+  assert.deepEqual(U.summarizeNight(a), before, "callers get copies");
+});

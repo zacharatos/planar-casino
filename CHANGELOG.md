@@ -2,7 +2,11 @@
 
 All notable changes to this module are listed here. The release workflow uses the section for the tagged version as the release notes.
 
-## [Unreleased]
+## [1.1.0]
+
+### Changed
+
+- **Closed casino nights keep only their totals in the world data.** Every chip movement rewrites the ledger and sends it to every connected player; with every night's full log inside, that grew with each casino night. When a night is closed (and its journal page is written) its entry-by-entry log is dropped from the setting: the panel still shows its totals, **Copy** copies the full page, and the page itself is untouched. Existing closed nights are compacted once on the GM's next login. **Sync** is hidden for archived nights (their page is final).
 
 ### Fixed
 
