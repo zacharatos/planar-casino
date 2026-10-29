@@ -13,6 +13,10 @@
   "relationships": {
     "systems": [
       { "id": "dnd5e", "type": "system", "compatibility": { "minimum": "6.0.0" } }
+    ],
+    "recommends": [
+      { "id": "planar-codex", "type": "module", "reason": "Each casino night's ledger is written as a Codex note for the session log." },
+      { "id": "planar-soundboard", "type": "module", "reason": "Spins, wins, jackpots and busts can play Soundboard pads (set in the module settings)." }
     ]
   },
   "esmodules": ["scripts/main.mjs"],

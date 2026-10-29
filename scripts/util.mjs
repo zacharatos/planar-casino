@@ -397,3 +397,10 @@ export function prizeText(prize, rolled) {
 
 /** A short time stamp "HH:MM" from a Date. */
 export const clock = date => `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+/** Does an actor update change what the casino windows show? Player characters always; others only for ownership or our flags. */
+export function actorChangeMatters(type, changed) {
+  if (type === "character") return true;
+  if (!changed || typeof changed !== "object") return false;
+  return "ownership" in changed || !!changed.flags?.["planar-casino"];
+}

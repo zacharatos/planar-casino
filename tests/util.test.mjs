@@ -291,3 +291,13 @@ test("archiveNight keeps a closed night's totals and drops its log; open or page
   U.summarizeNight(a)[0].prizes.push("x");
   assert.deepEqual(U.summarizeNight(a), before, "callers get copies");
 });
+
+test("only player characters, ownership or casino flags redraw the casino windows", async () => {
+  const { actorChangeMatters } = await import("../scripts/util.mjs");
+  assert.ok(actorChangeMatters("character", { system: { attributes: { hp: { value: 3 } } } }));
+  assert.ok(!actorChangeMatters("npc", { system: { attributes: { hp: { value: 3 } } } }));
+  assert.ok(actorChangeMatters("npc", { ownership: { a: 3 } }));
+  assert.ok(actorChangeMatters("npc", { flags: { "planar-casino": { rival: true } } }));
+  assert.ok(!actorChangeMatters("npc", { flags: { other: 1 } }));
+  assert.ok(!actorChangeMatters("npc", null));
+});

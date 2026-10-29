@@ -8,7 +8,7 @@ import { playWheel } from "./wheel-fx.mjs";
 import { CasinoPanel } from "./panel.mjs";
 import { CasinoWindow } from "./window.mjs";
 import { registerChat } from "./chat.mjs";
-import { escapeHTML as esc } from "./util.mjs";
+import { escapeHTML as esc, actorChangeMatters } from "./util.mjs";
 import { t } from "./i18n.mjs";
 import "./games.mjs"; // registers the GM-side actions
 
@@ -86,7 +86,9 @@ Hooks.on("getSceneControlButtons", controls => {
 
 // Keep windows current when razors or gold change.
 for (const hook of ["createItem", "updateItem", "deleteItem"]) Hooks.on(hook, item => { if (isChip(item)) refresh(); });
-Hooks.on("updateActor", refresh);
+// Only player characters (their gold, name, picture, owner) show in the casino windows: NPC hit points
+// changing in combat don't redraw them.
+Hooks.on("updateActor", (actor, changed) => { if (actorChangeMatters(actor?.type, changed)) refresh(); });
 Hooks.on("updateWorldTime", refresh);
 
 // A razor counter next to the coins on dnd5e character sheets.

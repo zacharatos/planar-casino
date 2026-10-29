@@ -2,6 +2,15 @@
 
 All notable changes to this module are listed here. The release workflow uses the section for the tagged version as the release notes.
 
+## [1.1.1]
+
+### Fixed
+- **Casino windows no longer redraw for every actor change.** NPC hit points changing in combat redrew the GM panel and every open player window. Only player characters (and ownership or casino flags) refresh them now.
+
+### Changed
+- The manifest recommends Planar Codex (the night's ledger note) and Planar Soundboard (pads), so Foundry points them out when they're missing.
+- CI and release workflows use `actions/checkout@v5` and `actions/setup-node@v5`; CI runs with read-only repository permissions.
+
 ## [1.1.0]
 
 ### Changed

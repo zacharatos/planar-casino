@@ -103,6 +103,7 @@ Reload the browser (F5) after each change. Use a second browser logged in as a p
 
 **Chat**
 - `/chips`, `/slots`, `/wheel`, `/cage buy 2`, `/cage cash 1`, `/casino` as a player with an assigned character, and as the GM with a token selected. `/cage` alone shows the usage.
+- With the casino panel open, damage an NPC token several times: the panel doesn't redraw. Change a hero's gold: it does. A player's casino window behaves the same.
 
 ## Changing things
 
